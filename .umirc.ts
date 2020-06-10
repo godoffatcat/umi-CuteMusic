@@ -1,7 +1,11 @@
 import { defineConfig } from 'umi';
 
 export default defineConfig({
-  nodeModulesTransform: {
+  antd: {
+    dark: true,
+    compact: true,
+  },
+    nodeModulesTransform: {
     type: 'none',
   },
   routes: [

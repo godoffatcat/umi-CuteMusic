@@ -1,14 +1,14 @@
 import React from 'react'
-import styles from './titleBarCss';
+import styles from './titleBarCss.less';
 
 
 const TitleBar = () => {
   return(
-    <div style={styles.title}>
-      <div style={styles.titleFont}>
+    <div className={styles.title}>
+      <div className={styles.titleFont}>
        =元气音乐库=
       </div>
-      <button style={styles.btn}>下载APP</button>
+      <button className={styles.btn}>下载APP</button>
     </div>
   )
 }

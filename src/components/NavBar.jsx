@@ -1,17 +1,18 @@
 import React from 'react'
 import { Tabs, WhiteSpace } from 'antd-mobile';
+import styles from './titleBarCss.less'
 
 const tabs = [
-  { title: 'Home&Hot', key: 't1' },
-  { title: 'board', key: 't2' },
-  { title: 'search', key: 't3' },
+  { title: '=首页=', key: 't1' },
+  { title: '=元气排行榜=', key: 't2' },
+  { title: '=搜索=', key: 't3' },
 ];
 
 const NavBar = () => {
   return(
     <div>
     <WhiteSpace />
-    <div style={{ height: 200 }}>
+    <div style={{ height: 100 }}>
       <Tabs tabs={tabs}
         initialPage={'t1'}
       >

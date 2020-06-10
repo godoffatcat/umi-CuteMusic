@@ -23,3 +23,7 @@ export function getTop(type, limit = 10) {
 export function getUrl(id) {
   return get(`/song/url?id=${id}`)
 }
+
+export function getPlaylist(type) {
+  return get(`/top/playlist?order=${type}`)
+}

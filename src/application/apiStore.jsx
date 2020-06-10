@@ -1,5 +1,5 @@
 import {get} from './apiCenter'
-
+//hey!
 export function getBanner() {
   return get('/banner')
 }

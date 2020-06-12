@@ -1,27 +1,69 @@
-import React from 'react'
-import {getPlaylist} from '../../application/apiStore'
-import { Grid } from 'antd-mobile';
+import React, { useState, useEffect } from 'react';
+import { getPlaylist } from '../../application/apiStore';
+import styles from './playlist.less';
 
-const data = Array.from(new Array(9)).map((_val, name) => ({
-  icon: 'https://gw.alipayobjects.com/zos/rmsportal/nywPmnTAvTmLusPxHPSu.png',
-  text: `${name}`,
-}));
+const PlayList = () => {
+  const [state, setState] = useState({
+    songlist: [''],
+  });
 
-const data1 = Array.from(new Array(9)).map(() => ({
-  icon: 'https://gw.alipayobjects.com/zos/rmsportal/WXoqXTHrSnRcUwEaQgXJ.png',
-}));
+  useEffect(() => {
+    const initPlaylist = () => {
+      const transformBanner = res => {
+        if (res.code === 200) {
+          setState({ songlist: res.result });
+        }
+      };
+      getPlaylist(6).then(res => transformBanner(res));
+    };
+    initPlaylist();
+  }, []);
 
-const GridExample = () => (
-<div className="sub-title">元气歌单</div>
-<Grid data={data1}
-  columnNum={3}
-  renderItem={dataItem => (
-    <div style={{ padding: '12.5px' }}>
-      <img src={dataItem.icon} style={{ width: '75px', height: '75px' }} alt="" />
-      <div style={{ color: '#888', fontSize: '14px', marginTop: '12px' }}>
-        <span>I am title..</span>
+  return (
+    <div>
+      <div className="sub-title">元气歌单</div>
+      <div className={styles.personalized_list}>
+        {Array.isArray(state.songlist) &&
+          state.songlist
+            .filter((v, i) => i < 3)
+            .map(v => {
+              <div className={styles.personalized_list_box} key={v.id}>
+                <img
+                  className={styles.personalized_list_box__img}
+                  src={v.picUrl}
+                  alt=""
+                />
+                <div className={styles.personalized_list_box__count}>
+                  ❤ {v.playCoucnt}
+                </div>
+                <div className={styles.personalized_list_box__title}>
+                  {v.name}
+                </div>
+              </div>;
+            })}
+      </div>
+      <div className={styles.personalized_list}>
+        {Array.isArray(state.songlist) &&
+          state.songlist
+            .filter((v, i) => i < 3)
+            .map(v => {
+              <div className={styles.personalized_list_box} key={v.id}>
+                <img
+                  className={styles.personalized_list_box__img}
+                  src={v.picUrl}
+                  alt=""
+                />
+                <div className={styles.personalized_list_box__count}>
+                  ❤ {v.playCoucnt}
+                </div>
+                <div className={styles.personalized_list_box__title}>
+                  {v.name}
+                </div>
+              </div>;
+            })}
       </div>
     </div>
-  )}
-/>
-)
+  );
+};
+
+export default PlayList

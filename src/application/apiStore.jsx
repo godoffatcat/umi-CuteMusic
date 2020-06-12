@@ -24,6 +24,6 @@ export function getUrl(id) {
   return get(`/song/url?id=${id}`)
 }
 
-export function getPlaylist(type) {
-  return get(`/top/playlist?order=${type}`)
+export function getPlaylist(num) {
+  return get(`/personalized?limit=${num}`)
 }

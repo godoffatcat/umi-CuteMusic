@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 
 const Banner = () => {
   const [state, setState] = useState({
-    imgHeight: 176,
+    // imgHeight: state.imgHeight,
     bannerPic: [''],
   });
 
@@ -12,13 +12,13 @@ const Banner = () => {
     const initBanner = () => {
       const transformBanner = res => {
         if (res.code === 200) {
-          setState({ ...state, bannerPic: res.banners });
+          setState({ bannerPic: res.banners });
         }
       };
       getBanner().then(res => transformBanner(res));
     };
     initBanner();
-  });
+  }, []);
 
 // useEffect(() => {
 //   console.log('banner is', state.bannerPic);
@@ -29,27 +29,26 @@ const Banner = () => {
       <Carousel
         autoplay={true}
         infinite
-        beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-        afterChange={index => console.log('slide to', index)}
+        // beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+        // afterChange={index => console.log('slide to', index)}
       >
-        {state.bannerPic.map(val => (
+        {Array.isArray(state.bannerPic) && state.bannerPic.map(val => (
           <a
             key={val}
-            href=""
             style={{
               display: 'inline-block',
               width: '100%',
-              height: state.imgHeight,
+              height: '150px',
             }}
           >
             <img
-              src={''}
+              src={val.imageUrl}
               alt=""
-              style={{ width: '100%', verticalAlign: 'top' }}
+              style={{ width: '100%', verticalAlign: 'top',  height: '150px'}}
               onLoad={() => {
                 // fire window resize event to change height
                 window.dispatchEvent(new Event('resize'));
-                setState({ imgHeight: 'auto' });
+                // setState({ ...state, imgHeight: 'auto' });
               }}
             />
           </a>

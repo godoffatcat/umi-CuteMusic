@@ -16,7 +16,7 @@ const NavBar = () => {
       <Tabs tabs={tabs}
         initialPage={'t1'}
       >
-        {/* <div className={{ NavBar}}>
+        <div className={{ NavBar}}>
           Content of first tab
         </div>
         <div className={{ NavBar}}>
@@ -24,7 +24,7 @@ const NavBar = () => {
         </div>
         <div className={{ NavBar}}>
           Content of third tab
-        </div> */}
+        </div>
       </Tabs>
     </div>
   </div>
@@ -32,3 +32,5 @@ const NavBar = () => {
 }
 // 呜呜wu
 export default NavBar
+
+

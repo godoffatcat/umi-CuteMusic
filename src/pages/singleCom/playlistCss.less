@@ -1,3 +1,7 @@
+.listBox {
+
+}
+
 .personalized {
   padding: 0 0 6.4vw;
 }
@@ -8,12 +12,26 @@
   display: flex;
   flex-wrap: wrap;
   margin: 15px 0 0 0 ;
+  font-size: 17px;
+}
+
+.citation {
+  width: 100vw;
+  height: 5.333vw;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  text-align: right;
+  margin: 5px 0px 0 90px ;
+  font-size: 3px;
+  color: palevioletred;
+  text-decoration: underline;
 }
 
 .square {
   height: 5.333vw;
-  width: 0.4vw;
-  background-color: brown;
+  width: 1.5vw;
+  background-color: pink;
   margin: 0 5px 0 0;
 }
 
@@ -48,36 +66,19 @@
   -webkit-line-clamp: 2;
   overflow: hidden;
   line-height: 4.5vw;
-  font-size: 3.4667vw;
-  padding: 1.6vw 0.5333vw 0 1.6vw;
+  font-size: 3vw;
+  padding: 1.4vw 0.5vw 0 1vw;
 }
 
-.singleSong {
-  height: 14.667vw;
-  width: 100vw;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-}
-
-.songListSingle {
+//////////////  newSong/////////////////////////
+.newSongBox {
   height: 14.667vw;
   width: 98vw;
   border-bottom: 0.067vw solid grey;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-
-.songListLeft {
-  padding: 1.6vw 0;
-}
-
-.titleName {
-  display: flex;
-  flex-wrap: wrap;
-  height: 6.667vw;
+  margin-bottom: 5px;
 }
 
 .songName {
@@ -100,9 +101,6 @@
   margin-left: 3vw;
 }
 
-.songListRight {
-  display: flex;
-  justify-self: center;
-  align-items: center;
-  margin-right: 1.333vw;
+.playBtn {
+  height: 30px;
 }

@@ -20,9 +20,9 @@ const Banner = () => {
     initBanner();
   }, []);
 
-// useEffect(() => {
-//   console.log('banner is', state.bannerPic);
-// }, [state.bannerPic])
+useEffect(() => {
+  console.log('banner is', state.bannerPic);
+}, [state.bannerPic])
 
   return (
     <WingBlank>

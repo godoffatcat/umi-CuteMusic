@@ -8,7 +8,7 @@ export function getSongList(limit = 30) {
   return get('/playlist/hot?limit=${limit}')
 }
 
-export function getnewSong(limit = 30) {
+export function getnewSong(limit = 10) {
   return get(`/personalized/newsong?limit=${limit}`)
 }
 
@@ -26,4 +26,8 @@ export function getUrl(id) {
 
 export function getPlaylist(num) {
   return get(`/personalized?limit=${num}`)
+}
+
+export function getListSong(id) {
+  return get(`/playlist/detail?id=${id}`)
 }

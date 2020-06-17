@@ -2,7 +2,7 @@ import { defineConfig } from 'umi';
 
 export default defineConfig({
   antd: {
-    dark: true,
+    dark: false,
     compact: true,
   },
     nodeModulesTransform: {

@@ -31,3 +31,11 @@ export function getPlaylist(num) {
 export function getListSong(id) {
   return get(`/playlist/detail?id=${id}`)
 }
+
+export function getDefault() {
+  return get(`/search/default`)
+}
+
+export function getHotWord() {
+  return get(`/search/hot`)
+}

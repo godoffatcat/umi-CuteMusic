@@ -1,51 +1,44 @@
-import { SearchBar, Button, WhiteSpace, WingBlank } from 'antd-mobile';
-import React, { useState, useEffect } from 'react'
+import { Toast, SearchBar, Button, WhiteSpace, WingBlank } from 'antd-mobile';
+import React, { useState, useEffect } from 'react';
+import { getSearch } from '../application/apiStore';
+import styles from './index.less'
 
 // TODO  增加热门词条、点击即填入state并同时触发搜索
 
-const SearchBarExample = ()  => {
+const SearchBarExample = () => {
   const [state, setState] = useState({
-    value: '美食',
+    value: 'mojito',
+    searchSong: [],
+  });
 
-  })
-
-  useEffect(() => {
-    autoFocusInst.focus()
-  }, [])
-
-  onChange= (value) => {
-    setState({ value });
+  const searchOne = () => {
+    const initSearch = () => {
+      const transformSearch = res => {
+        if (res.code === 200) {
+          setState({ searchSong: res.name });
+        }
+        Toast.hide();
+      };
+      Toast.loading('加载中', 0);
+      getSearch(state.value).then(res => transformSearch(res));
+    };
+    initSearch();
   };
-  clear = () => {
-    setState({ value: '' });
-  };
-  handleClick = () => {
-    this.manualFocusInst.focus();
-  }
 
-    return (<div>
-      <WingBlank><div className="sub-title">Normal</div></WingBlank>
-      <SearchBar placeholder="Search" maxLength={8} />
+
+  return (
+    <div>
+      <WingBlank>
+        <div className="sub-title"></div>
+      </WingBlank>
+      <SearchBar placeholder="Search" maxLength={10} />
       <WhiteSpace />
       <WingBlank>
-        <Button
-          onClick={this.handleClick}
-        >click to focus</Button>
+        <Button className={styles.searchBtn} onClick={searchOne()}>搜索元气！</Button>
       </WingBlank>
       <WhiteSpace />
-      <WingBlank><div className="sub-title">Show cancel button</div></WingBlank>
-      <SearchBar
-        value={state.value}
-        placeholder="Search"
-        onSubmit={value => console.log(value, 'onSubmit')}
-        onClear={value => console.log(value, 'onClear')}
-        onFocus={() => console.log('onFocus')}
-        onBlur={() => console.log('onBlur')}
-        onCancel={() => console.log('onCancel')}
-        showCancelButton
-        onChange={this.onChange}
-      />
-    </div>);
-}
+    </div>
+  );
+};
 
-export default SearchBarExample
+export default SearchBarExample;

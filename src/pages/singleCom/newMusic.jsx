@@ -20,34 +20,41 @@ const NewMusic = () => {
   }, []);
 
   useEffect(() => {
-    console.log('newSong is', state.newSong);
+    // console.log('newSong is', state.newSong);
   }, [state.newSong]);
 
-  const nameSplit = (str) => {
-    if(str.length > 20) {
-      var newName = str.substring(0, 20)
-      return newName + '...'
-    } else {
-      return str
+  const nameSplit = str => {
+    // console.log(str, '====str');
+    if (str === undefined) {
+      return '';
     }
-  }
+    if (str.length > 20) {
+      var newName = str.substring(0, 20);
+      return newName + '...';
+    } else {
+      return str;
+    }
+  };
 
   return (
     <div>
       <div className={styles.title}>
+        <div className={styles.t1}>
         <div className={styles.square}></div>
         ♡最新歌曲♡
+        </div>
+
         <div className={styles.citation}>全新元气，快来尝尝！</div>
       </div>
       <div className={styles.newSongListBox}>
         {Array.isArray(state.newSong) &&
-          state.newSong.map((val) => {
+          state.newSong.map((val, i) => {
             return (
-              <div className={styles.newSongBox} key={val.id}>
-                <div className={styles.songName}>{() => {
-                  nameSplit(val.name)
-                }}</div>
-                <div className={styles.singerInfo}>佚名</div>
+              <div className={styles.newSongBox} key={i}>
+                <div className={styles.songArtists}>
+                <div className={styles.songName}>{nameSplit(val.name)}</div>
+                <div className={styles.singerInfo}>{getName(val)}</div>
+                </div>
                 <button className={styles.playBtn}>PLAY</button>
               </div>
             );
@@ -58,3 +65,21 @@ const NewMusic = () => {
 };
 
 export default NewMusic;
+
+/**
+ *  获取artists的名字
+ * @param {*} val
+ */
+function getName(val) {
+  let name = '';
+  if (val.song && val.song.artists && Array.isArray(val.song.artists)) {
+    val.song.artists.forEach(element => {
+      name += element.name;
+      name += '-';
+    });
+    if (name[name.length - 1] === '-') {
+      name = name.slice(0, name.length - 1);
+    }
+  }
+  return name;
+}

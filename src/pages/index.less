@@ -1,7 +1,30 @@
-
-.normal {
+.body {
+  background-color: white;
 }
+
 
 .title {
   background: rgb(121, 242, 157);
+}
+
+.page {
+  // 全局样式
+  :global {
+
+  }
+}
+
+:global {
+  .laomi {
+    .am-tabs-default-bar-underline {
+      border-color: red;
+    }
+  }
+}
+
+.searchBtn {
+  height: 30px;
+  width: 60px;
+  color: palevioletred;
+  font-size: 5px;
 }

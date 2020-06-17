@@ -8,10 +8,14 @@ export default defineConfig({
     nodeModulesTransform: {
     type: 'none',
   },
+  // dva: {
+  //   immer: true
+  // },
   routes: [
     { path: '/', component: '@/pages/index' },
     { path: '/search', component: '@/pages/search' },
     { path: '/list', component: '@/pages/list' },
+    { path: '/style', component: '@/pages/stylePage' },
 
   ],
 });

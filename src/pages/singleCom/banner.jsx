@@ -1,4 +1,4 @@
-import { Carousel, WingBlank } from 'antd-mobile';
+import { Carousel, WingBlank ,Toast} from 'antd-mobile';
 import { getBanner } from '../../application/apiStore'
 import React, { useState, useEffect } from 'react';
 
@@ -14,14 +14,16 @@ const Banner = () => {
         if (res.code === 200) {
           setState({ bannerPic: res.banners });
         }
+        Toast.hide()
       };
+      Toast.loading('加载中', 0)
       getBanner().then(res => transformBanner(res));
     };
     initBanner();
   }, []);
 
 useEffect(() => {
-  console.log('banner is', state.bannerPic);
+  // console.log('banner is', state.bannerPic);
 }, [state.bannerPic])
 
   return (

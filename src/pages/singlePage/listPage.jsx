@@ -20,7 +20,7 @@ const NewMusic = () => {
   }, []);
 
   useEffect(() => {
-    console.log('newSong is', state.newSong);
+    // console.log('newSong is', state.newSong);
   }, [state.songOfList]);
 
   const nameSplit = (str) => {

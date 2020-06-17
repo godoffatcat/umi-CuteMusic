@@ -34,18 +34,23 @@ const PlayList = () => {
   return (
     <div>
       <div className={styles.title}>
-        <div className={styles.square}></div>
-        ♡元气歌单♡
+        <div className={styles.t1}>
+          <div className={styles.square}></div>
+          <div>♡元气歌单♡</div>
+        </div>
+
         <div className={styles.citation}>用最元气的歌单打开全新的一天！</div>
       </div>
-      <div className={styles.personalized_list} key='all'>
+      <div className={styles.personalized_list} key="all">
         {Array.isArray(state.songlist) &&
+          state.songlist.length &&
           state.songlist
-            .filter((v, i) => i < 3)
-            .map(v => {
+            .filter((v, i) => i <= 2)
+            .map((v, i) => {
+              // console.log(v.id, '====vid');
               return (
-                <div className={styles.listBox} key='1'>
-                  <div className={styles.personalized_list_box} key={v.id}>
+                <div className={styles.listBox} key={i}>
+                  <div className={styles.personalized_list_box}>
                     <img
                       className={styles.personalized_list_box__img}
                       src={v.picUrl}

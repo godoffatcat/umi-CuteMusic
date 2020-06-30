@@ -16,8 +16,8 @@ export function getSearch(keywords, limit = 20) {
   return get(`/search?keywords=${keywords}&limit=${limit}`)
 }
 
-export function getTop(type, limit = 10) {
-  return get(`/top/list?idx=${type}&limit=${limit}`)
+export function getRank(type) {
+  return get(`/top/list?idx=${type}`)
 }
 
 export function getUrl(id) {
@@ -38,4 +38,16 @@ export function getDefault() {
 
 export function getHotWord() {
   return get(`/search/hot`)
+}
+
+export function getPersonalList(id) {
+  return get(`/playlist/detail?id=${id}`)
+}
+
+export function getSongDetail(id) {
+  return get(`/song/detail?ids=${id}`)
+}
+
+export function getSongLyric(id) {
+  return get(`/lyric?id=${id}`)
 }

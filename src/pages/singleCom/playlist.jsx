@@ -1,23 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { getPlaylist } from '../../application/apiStore';
+import { getPlaylist } from '@/services/index';
 import styles from './playlistCss.less';
-
+import useRequest from '@/hooks/useRequest';
+import useLoading from '@/hooks/useLoading'
+import { history } from 'umi';
 const PlayList = () => {
   const [state, setState] = useState({
     songlist: [''],
   });
 
+  const { loading, data } = useRequest(getPlaylist(6));
+
   useEffect(() => {
-    const initPlaylist = () => {
+    if(data) {
       const transformBanner = res => {
-        if (res.code === 200) {
-          setState({ songlist: res.result });
-        }
-      };
-      getPlaylist(6).then(res => transformBanner(res));
-    };
-    initPlaylist();
-  }, []);
+        setState({ songlist: res.result });
+      }
+    transformBanner(data);
+    }
+  }, [data]);
+
+  useLoading(loading)
 
   useEffect(
     count => {
@@ -50,7 +53,17 @@ const PlayList = () => {
               // console.log(v.id, '====vid');
               return (
                 <div className={styles.listBox} key={i}>
-                  <div className={styles.personalized_list_box}>
+                  <div
+                    onClick={() => {
+                      history.push({
+                        pathname: '/songList',
+                        query: {
+                          id: v.id,
+                        },
+                      });
+                    }}
+                    className={styles.personalized_list_box}
+                  >
                     <img
                       className={styles.personalized_list_box__img}
                       src={v.picUrl}
@@ -73,7 +86,18 @@ const PlayList = () => {
             .filter((v, i) => i > 2)
             .map(v => {
               return (
-                <div className={styles.personalized_list_box} key={v.id}>
+                <div
+                  className={styles.personalized_list_box}
+                  key={v.id}
+                  onClick={() => {
+                    history.push({
+                      pathname: '/songList',
+                      query: {
+                        id: v.id,
+                      },
+                    });
+                  }}
+                >
                   <img
                     className={styles.personalized_list_box__img}
                     src={v.picUrl}

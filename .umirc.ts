@@ -14,8 +14,9 @@ export default defineConfig({
   routes: [
     { path: '/', component: '@/pages/index' },
     { path: '/search', component: '@/pages/search' },
-    { path: '/list', component: '@/pages/list' },
-    { path: '/style', component: '@/pages/stylePage' },
-
+    { path: '/list', component: '@/pages/ranking' },
+    // { path: '/style', component: '@/pages/stylePage' },
+    { path: '/songList', component: '@/pages/sonPage/songListSon' },
+    { path: '/songDetail', component: '@/pages/sonPage/songPage' },
   ],
 });

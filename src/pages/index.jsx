@@ -6,8 +6,8 @@ import {Button, NoticeBar, WhiteSpace, Tabs } from 'antd-mobile';
 import PlayList from './singleCom/playlist';
 import NewMusic from './singleCom/newMusic';
 import EndTitleBar from '../components/endBar';
+import RankingList from './ranking'
 import SearchBarExample from './search';
-import ToastExample from '../components/loading';
 import {useModel, history, IndexModelState, ConnectProps, Loading, connect } from 'umi';
 
 const tabs = [
@@ -28,7 +28,6 @@ const Index = ({ dispatch, index }) => {
 
   return (
     <div className={styles.page}>
-      <ToastExample></ToastExample>
       <TitleBar></TitleBar>
       <WhiteSpace size="2px" />
       <Tabs
@@ -48,7 +47,7 @@ const Index = ({ dispatch, index }) => {
           <EndTitleBar></EndTitleBar>
         </div>
         <div>
-          <PlayList></PlayList>
+          <RankingList></RankingList>
         </div>
         <div>
           <SearchBarExample></SearchBarExample>

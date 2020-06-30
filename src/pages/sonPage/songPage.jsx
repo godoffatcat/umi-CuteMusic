@@ -3,7 +3,7 @@ import styles from './singlePageCss.less';
 import { getSongDetail, getUrl } from '../../services/index';
 import SongLyric from './lyric';
 import { useLocation } from 'umi';
-import useRequest from '../../hooks/useRequest';
+import { useRequest } from 'umi';
 import useLoading from '../../hooks/useLoading';
 
 const SingleSong = props => {
@@ -20,32 +20,52 @@ const SingleSong = props => {
     songAudio: '',
   });
 
-  // 请求歌曲详情、播放url
   const realId = props.location.query.id
+
+  // 请求歌曲详情、播放url
   const { loading, data } = useRequest(getSongDetail(realId));
   useEffect(() => {
     if (data) {
       const transformSongDetail = res => {
-        setState({ songDetail: res.songs, pic: res.songs[0].al.picUrl });
+        setState({...state, songDetail: res.songs, pic: res.songs[0].al.picUrl });
         console.log(res.songs, 'songs')
       };
       transformSongDetail(data);
     }
   }, [data]);
-  useLoading(loading);
+  useLoading(loading)
 
-  const { loadingA, dataA } = useRequest(getUrl(realId));
+  // play or pause
+  // const playSwitch = () => {
+  //   const playUrl = document.getElementById('thisMusicAudio')
+  // }
+
+  // 点击播放,抓取url
+  const { loading: loadingUrl, data: dataUrl, run: runUrlPlay } = useRequest(getUrl(id), {
+    manual: true,
+  })
   useEffect(() => {
-    if (dataA) {
+    if(dataUrl) {
       const transformSongUrl = res => {
-        setState({ songAudio: res.url});
-        console.log(res.url, 'audio url')
+        setState({...state, songAudio: res.url});
       };
-      transformSongUrl(data);
+      transformSongUrl(dataA);
     }
-  }, [dataA]);
-  useLoading(loadingA);
+  }, [dataUrl])
 
+  const playMusicAudio = (id) => {
+    runUrlPlay(id)
+};
+
+  // 更改按钮形态、歌曲播放
+  const btnPlayorPause = () => {
+    if (state.playMusic === false) {
+      setState({ ...state, playMusic: true });
+      playMusicAudio(realId)
+    } else {
+      setState({ ...state, playMusic: false });
+    }
+  };
 
   const getName = val => {
     let name = '';
@@ -61,23 +81,13 @@ const SingleSong = props => {
     return name;
   };
 
-  // 更改按钮形态、歌曲播放
-  const btnPlayorPause = () => {
-    if (state.playMusic === false) {
-      setState({ ...state, playMusic: true });
-      console.log(state.playMusic);
-    } else {
-      setState({ ...state, playMusic: false });
-      console.log(state.playMusic);
-    }
-  };
-
   return (
     <div className={styles.bgPic}>
       {Array.isArray(state.songDetail) &&
         state.songDetail.map(v => {
           return (
-            <div className={styles.songPageDetail} key={v.dt}>
+            <div className={styles.songPageDetail} key={v.dt} >
+              <audio id='thisMusicAudio' src={state.songAudio} auto></audio>
               <div className={styles.songTitle}>{v.name}</div>
               <div className={styles.songArtists}>{getName(v)}</div>
               <div className={styles.picAndplay}>

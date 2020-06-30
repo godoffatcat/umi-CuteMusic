@@ -8,6 +8,10 @@ export default defineConfig({
     nodeModulesTransform: {
     type: 'none',
   },
+
+    request: {
+      dataField: '',
+    },
   // dva: {
   //   immer: true
   // },

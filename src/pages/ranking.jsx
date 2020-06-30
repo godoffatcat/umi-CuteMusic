@@ -37,6 +37,7 @@ const RankingList = () => {
     if (data) {
       const transformRankList = res => {
           setState({
+            ...state,
             rankList: res.playlist.tracks.slice(0, 50),
             typeName: res.playlist.name,
             updateTime: res.playlist.trackUpdateTime,

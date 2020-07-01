@@ -25,8 +25,8 @@ const SearchBarExample = () => {
   useLoading(loadingSearch);
   useEffect(() => {
     if (dataSearch) {
-      console.log(dataSearch, 'dataSearch')
       const transformSearch = res => {
+        console.log(res.result.songs, 'serach song')
         setState({ ...state, searchSong: res.result.songs });
       };
       transformSearch(dataSearch);
@@ -34,6 +34,7 @@ const SearchBarExample = () => {
   }, [dataSearch]);
 
   const searchOne = (value) => {
+    console.log('value is', value);
     runSearch(value)
   };
 

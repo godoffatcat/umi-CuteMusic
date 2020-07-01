@@ -1,6 +1,6 @@
 import React, { useState, useEffect, version } from 'react';
 import styles from './singlePageCss.less';
-import { getSongDetail, getUrl } from '../../services/index';
+import { getSongDetail, getUrl } from '../../application/apiStore';
 import SongLyric from './lyric';
 import { useLocation } from 'umi';
 import { useRequest } from 'umi';
@@ -20,50 +20,68 @@ const SingleSong = props => {
     songAudio: '',
   });
 
-  const realId = props.location.query.id
+  const realId = props.location.query.id;
 
   // 请求歌曲详情、播放url
-  const { loading, data } = useRequest(getSongDetail(realId));
+  const { loading, data } = useRequest(getSongDetail, {
+    defaultParams: [realId],
+  });
   useEffect(() => {
     if (data) {
       const transformSongDetail = res => {
-        setState({...state, songDetail: res.songs, pic: res.songs[0].al.picUrl });
-        console.log(res.songs, 'songs')
+        setState({
+          ...state,
+          songDetail: res.songs,
+          pic: res.songs[0].al.picUrl,
+        });
+        console.log(res.songs, 'songs');
       };
       transformSongDetail(data);
     }
   }, [data]);
-  useLoading(loading)
+  useLoading(loading);
 
   // play or pause
   // const playSwitch = () => {
-  //   const playUrl = document.getElementById('thisMusicAudio')
+  //   const playAudio = document.getElementById('thisMusicAudio')
+  //   if(state.playMusic === false) {
+  //     playAudio.play()
+  //   } else {
+  //     playAudio.pause()
+  //   }
   // }
 
   // 点击播放,抓取url
-  const { loading: loadingUrl, data: dataUrl, run: runUrlPlay } = useRequest(getUrl(id), {
-    manual: true,
-  })
+  const { loading: loadingUrl, data: dataUrl } = useRequest(getUrl, {
+    defaultParams: [realId],
+  });
   useEffect(() => {
-    if(dataUrl) {
+    if (dataUrl) {
       const transformSongUrl = res => {
-        setState({...state, songAudio: res.url});
+        setState({ ...state, songAudio: res.data[0].url });
       };
-      transformSongUrl(dataA);
+      transformSongUrl(dataUrl);
     }
-  }, [dataUrl])
+  }, [dataUrl]);
 
-  const playMusicAudio = (id) => {
-    runUrlPlay(id)
-};
+  // play or pause
+  const playAudio = document.getElementById('thisMusicAudio');
+
+  const playMusicAudio = () => {
+    playAudio.play();
+  };
+  const pauseMusicAudio = () => {
+    playAudio.pause();
+  };
 
   // 更改按钮形态、歌曲播放
   const btnPlayorPause = () => {
     if (state.playMusic === false) {
       setState({ ...state, playMusic: true });
-      playMusicAudio(realId)
+      playMusicAudio();
     } else {
       setState({ ...state, playMusic: false });
+      pauseMusicAudio();
     }
   };
 
@@ -86,8 +104,7 @@ const SingleSong = props => {
       {Array.isArray(state.songDetail) &&
         state.songDetail.map(v => {
           return (
-            <div className={styles.songPageDetail} key={v.dt} >
-              <audio id='thisMusicAudio' src={state.songAudio} auto></audio>
+            <div className={styles.songPageDetail} key={v.dt}>
               <div className={styles.songTitle}>{v.name}</div>
               <div className={styles.songArtists}>{getName(v)}</div>
               <div className={styles.picAndplay}>
@@ -96,6 +113,7 @@ const SingleSong = props => {
                   {state.playMusic ? 'PAUSE' : 'PLAY'}
                 </button>
               </div>
+              <audio id="thisMusicAudio" src={state.songAudio}></audio>
               <SongLyric id={realId}></SongLyric>
             </div>
           );
@@ -105,4 +123,3 @@ const SingleSong = props => {
 };
 
 export default SingleSong;
-

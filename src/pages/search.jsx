@@ -74,8 +74,9 @@ const SearchBarExample = () => {
     var defaultWord = state.defaultWord;
     if (value === '') {
       searchOne(defaultWord);
+    } else {
+      searchOne(value);
     }
-    searchOne(value);
   };
 
   // onchange事件，输入内容更新到state

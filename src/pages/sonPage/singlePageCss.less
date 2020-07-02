@@ -17,7 +17,7 @@
 }
 
 .songArtists {
-  font-size: 10px;
+  font-size: 15px;
   color: rgb(85, 83, 85);
   display: flex;
   align-self: center;
@@ -47,9 +47,29 @@
   position: absolute;
   margin-left: auto;
   margin-right: auto;
-  top: 210px;
+  top: 280px;
   text-align: center;
   border-radius:50%;
   background-color: palevioletred;
   color: whitesmoke;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+
+  .window {
+      height: 60px;
+      // border: 1px solid red;
+      overflow: hidden;
+  }
+
+  .inner {
+      // background-color: pink;
+      transition: transform 1s;
+      // transform: translateY(-20px);
+  }
 }

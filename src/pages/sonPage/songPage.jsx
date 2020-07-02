@@ -1,10 +1,13 @@
 import React, { useState, useEffect, version } from 'react';
 import styles from './singlePageCss.less';
-import { getSongDetail, getUrl } from '../../application/apiStore';
+import { getSongDetail, getUrl, getSongLyric } from '../../application/apiStore';
 import SongLyric from './lyric';
 import { useLocation } from 'umi';
 import { useRequest } from 'umi';
 import useLoading from '../../hooks/useLoading';
+import TitleBar from '../../components/titleBar';
+import EndTitleBar from '../../components/endBar';
+
 
 const SingleSong = props => {
   console.log(props, '==props');
@@ -18,6 +21,7 @@ const SingleSong = props => {
     pic: '',
     playMusic: false,
     songAudio: '',
+    lyricFile: '',
   });
 
   const realId = props.location.query.id;
@@ -41,16 +45,6 @@ const SingleSong = props => {
   }, [data]);
   useLoading(loading);
 
-  // play or pause
-  // const playSwitch = () => {
-  //   const playAudio = document.getElementById('thisMusicAudio')
-  //   if(state.playMusic === false) {
-  //     playAudio.play()
-  //   } else {
-  //     playAudio.pause()
-  //   }
-  // }
-
   // 点击播放,抓取url
   const { loading: loadingUrl, data: dataUrl } = useRequest(getUrl, {
     defaultParams: [realId],
@@ -64,9 +58,20 @@ const SingleSong = props => {
     }
   }, [dataUrl]);
 
+  // 请求歌词文件
+  const { loading:loadingLyric, data: dataLyric } = useRequest(getSongLyric(realId));
+  useEffect(() => {
+    if (dataLyric) {
+      const transformSongLyric = res => {
+        setState({ lyricFile: res.lrc.lyric });
+      };
+      transformSongLyric(dataLyric);
+    }
+  }, [dataLyric]);
+  useLoading(loadingLyric);
+
   // play or pause
   const playAudio = document.getElementById('thisMusicAudio');
-
   const playMusicAudio = () => {
     playAudio.play();
   };
@@ -100,6 +105,8 @@ const SingleSong = props => {
   };
 
   return (
+    <div>
+    <TitleBar/>
     <div className={styles.bgPic}>
       {Array.isArray(state.songDetail) &&
         state.songDetail.map(v => {
@@ -113,11 +120,13 @@ const SingleSong = props => {
                   {state.playMusic ? 'PAUSE' : 'PLAY'}
                 </button>
               </div>
-              <audio id="thisMusicAudio" src={state.songAudio}></audio>
-              <SongLyric id={realId}></SongLyric>
+              <audio id="thisMusicAudio" src={state.songAudio} ></audio>
+              <SongLyric id={realId} pause={state.playMusic} lyric={state.lyricFile}></SongLyric>
+              <EndTitleBar></EndTitleBar>
             </div>
           );
         })}
+    </div>
     </div>
   );
 };

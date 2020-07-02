@@ -1,16 +1,27 @@
-import React from 'react'
+import React from 'react';
 import styles from './titleBarCss.less';
+import { history } from 'umi';
 
 
 const TitleBar = () => {
-  return(
+  return (
     <div className={styles.title}>
-      <div className={styles.titleFont}>
-       =元气音乐库=
+      <div
+        className={styles.titleFont}
+        onClick={() => {
+          history.push({
+            pathname: '/',
+          });
+        }}
+      >
+        =元气音乐库=
       </div>
-      <button className={styles.btn}>下载APP</button>
-    </div>
-  )
-}
+      <a href='https://music.163.com/#/download'>
+      <button className={styles.btn} >下载APP</button>
+      </a>
 
-export default TitleBar
+    </div>
+  );
+};
+
+export default TitleBar;

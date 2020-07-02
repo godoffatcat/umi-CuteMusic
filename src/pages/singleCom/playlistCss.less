@@ -1,5 +1,4 @@
 .listBox {
-
 }
 
 .personalized {
@@ -16,7 +15,7 @@
   flex-direction: row;
   align-items: center;
 
-  &>.t1 {
+  & > .t1 {
     display: flex;
     justify-content: start;
   }
@@ -28,7 +27,6 @@
   width: 1.5vw;
   background-color: pink;
   margin: 4px 5px 0 0;
-
 }
 
 .citation {
@@ -38,8 +36,6 @@
   text-decoration: underline;
   margin-right: 5px;
 }
-
-
 
 .titleName {
   font-size: 17px;
@@ -97,14 +93,15 @@
 }
 
 .songName {
+  width: 85%;
   font-size: 4.533vw;
   margin-left: 3vw;
   padding-bottom: 1vw;
   color: black;
   font-weight: 600;
   overflow: hidden;
-text-overflow:ellipsis;
-white-space: nowrap;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .importFrom {
@@ -119,7 +116,7 @@ white-space: nowrap;
   margin-left: 3vw;
   margin-top: -6px;
   overflow: hidden;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -129,10 +126,13 @@ white-space: nowrap;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius:50%;
+  border-radius: 50%;
   margin-right: 15px;
 }
 
+.newSongListBox {
+  margin-bottom: 80px;
+}
 // .text-lines(@lineNum) {
 //   display: -webkit-box;
 //   /* autoprefixer: ignore next */

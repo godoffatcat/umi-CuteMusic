@@ -6,6 +6,7 @@ import { Toast } from 'antd-mobile';
 import { history } from 'umi';
 import useRequest from '../../hooks/useRequest';
 import useLoading from '../../hooks/useLoading';
+import TitleBar from '../../components/titleBar';
 
 const PersonalList = props => {
   const [state, setState] = useState({
@@ -55,6 +56,7 @@ const PersonalList = props => {
 
   return (
     <div>
+      <TitleBar></TitleBar>
       <div className={styles.rankBanner}>
         <div className={styles.rankBannerTitle}>{state.listName}</div>
         <div className={styles.time}>{timeTo()} 更新</div>
@@ -62,24 +64,24 @@ const PersonalList = props => {
       <div className={styles.rankListArea}>
         {state.songListINthis.map((val, i) => {
           return (
-            <div key={i}>
+            <div
+              className={styles.rankSingle}
+              key={i}
+              onClick={() => {
+                history.push({
+                  pathname: '/songDetail',
+                  query: {
+                    id: val.id,
+                  },
+                });
+              }}
+            >
+              <div className={styles.rankPoint}> · </div>
               <div className={styles.rankNameAr}>
                 <div className={styles.rankName}> {val.name}</div>
                 <div className={styles.artists}>{getName(val)}</div>
               </div>
-              <button
-                className={styles.playBtn}
-                onClick={() => {
-                  history.push({
-                    pathname: '/songDetail',
-                    query: {
-                      id: val.id,
-                    },
-                  });
-                }}
-              >
-                ▶
-              </button>
+              <button className={styles.playBtn}>▶</button>
             </div>
           );
         })}
